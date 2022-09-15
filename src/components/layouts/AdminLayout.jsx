@@ -1,8 +1,17 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
+import * as Yup from 'yup';
 import { SidebarProvider } from '../../lib/context/theme/SidebarContext';
 import { Input, InputDate, InputSelect, SelectMulti } from '../commons/forms';
 import Navbar from '../navigation/Navbar';
 import SidebarPos from '../navigation/Sidebar';
+
+const schemaValidation = Yup.object({
+	name: Yup.string().trim().required('Nombre es requerido'),
+	country: Yup.object().required('Country es requerido').nullable(),
+	fecha: Yup.date().required(),
+	states: Yup.array().required('Paises es requerido')
+});
 
 const AdminLayout = () => {
 	const {
@@ -10,7 +19,8 @@ const AdminLayout = () => {
 		handleSubmit,
 		formState: { errors }
 	} = useForm({
-		defaultValues: { name: '', country: '', fecha: '', state: [] }
+		defaultValues: { name: '', country: '', fecha: new Date(), states: [] },
+		resolver: yupResolver(schemaValidation)
 	});
 
 	const options = [
