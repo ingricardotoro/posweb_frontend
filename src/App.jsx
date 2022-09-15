@@ -1,8 +1,11 @@
+import { BrowserRouter } from 'react-router-dom';
+import AdminLayout from './components/layouts/AdminLayout';
+
 function App() {
 	return (
-		<div className='flex flex-row justify-center'>
-			<p className='text-3xl font-bold underline'>Template APP</p>
-		</div>
+		<BrowserRouter>
+			<AdminLayout />
+		</BrowserRouter>
 	);
 }
 
