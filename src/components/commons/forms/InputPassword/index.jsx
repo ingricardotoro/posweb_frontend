@@ -1,7 +1,9 @@
+import { Password } from 'primereact/password';
 import { Controller } from 'react-hook-form';
 import { Capitalize } from '../../../../lib/utils/Capitalize';
+import './password.css';
 
-const InputPassword = ({ control, name, errors }) => {
+const InputPassword = ({ control, name, placeholder, errors }) => {
 	const error = errors[name];
 	const errorMessage = error && error.message;
 
@@ -14,14 +16,24 @@ const InputPassword = ({ control, name, errors }) => {
 				fieldState: { error }
 			}) => (
 				<>
-					<label htmlFor={name}>{Capitalize(name)}</label>
-					<InputText
+					<label
+						htmlFor={name}
+						className='block tracking-wide text-xs font-bold'
+					>
+						{Capitalize(name)}
+					</label>
+					<Password
 						id={name}
 						value={value}
+						placeholder={placeholder}
 						onChange={onChange}
 						onBlur={onBlur}
-						toogleMask
-						className={error ? 'p-invalid block' : ''}
+						className={
+							error
+								? 'p-password p-invalid block w-full p-2'
+								: 'p-password block w-full p-2'
+						}
+						toggleMask
 					/>
 					{error && <small className='p-error block'>{errorMessage}</small>}
 				</>

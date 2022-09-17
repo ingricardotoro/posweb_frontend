@@ -15,14 +15,21 @@ const Input = ({ control, name, placeholder, errors }) => {
 				fieldState: { error }
 			}) => (
 				<>
-					<label htmlFor={name}>{Capitalize(name)}</label>
+					<label
+						htmlFor={name}
+						className='block tracking-wide text-xs font-bold p-1'
+					>
+						{Capitalize(name)}
+					</label>
 					<InputText
 						id={name}
 						value={value}
 						onChange={onChange}
 						onBlur={onBlur}
 						placeholder={placeholder}
-						className={error ? 'p-invalid block' : ''}
+						className={
+							error ? 'p-invalid block w-full p-2' : 'block w-full p-2 my-2'
+						}
 					/>
 					{error && <small className='p-error block'>{errorMessage}</small>}
 				</>
