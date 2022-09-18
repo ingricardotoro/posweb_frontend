@@ -2,16 +2,21 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-import Axios from '../../../lib/api/Axios';
+import axios from '../../../lib/api/Axios';
 import { onChecking, onLogin } from '../../../store/auth';
 
 const schemaValidation = Yup.object({
 	username: Yup.string().trim().required('Nombre de usuario es requerido'),
-	password: Yup.string().required('Contraseña es requerido')
+	password: Yup.string().required('Contraseña es requerida')
 });
 
 const useFormLogin = () => {
+	const navigate = useNavigate();
+	const location = useLocation();
+	const from = location.state?.from?.pathname || '/';
+
 	const [isLoading, setIsLoading] = useState(false);
 
 	const [errorMessage, setErrorMessage] = useState({
@@ -35,32 +40,35 @@ const useFormLogin = () => {
 		dispatch(onChecking());
 
 		try {
-			const options = {
-				method: 'POST',
-				data: { username, password }
-			};
+			const { data } = await axios.post(
+				'auth/login',
+				{ username, password },
+				{ withCredentials: true }
+			);
+			console.log(data);
 
-			const response = await Axios('auth/login', options);
-
-			if (response.ok) {
-				dispatch(onLogin({ username: 'mtoro', rol: 'Admin' }));
+			if (data.ok) {
+				const { user, accessToken } = data;
+				dispatch(onLogin({ ...user, accessToken }));
+				navigate(from, { replace: true });
 			}
 		} catch (error) {
-			let message;
-			switch (error.status) {
+			let messageError;
+
+			switch (error.response.status) {
 				case 500:
-					message = 'Internal Server Error';
+					messageError = 'Internal Server Error';
 					break;
 				case 401:
-					message = 'Invalid credentials';
+					messageError = 'Credenciales no validas';
 					break;
 				default:
-					message = error.message;
+					messageError = error.response.data.message;
 			}
 			setIsLoading(false);
 			setErrorMessage({
 				error: true,
-				message
+				message: messageError
 			});
 		}
 

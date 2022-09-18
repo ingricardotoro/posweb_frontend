@@ -3,32 +3,15 @@ import { getEnvVariables } from '../utils/getEnvVariables';
 
 const { VITE_API_URL } = getEnvVariables();
 
-export default async (path, options = {}) => {
-	const baseURL = `${VITE_API_URL}/api/${path}`;
+const BASE_URL = VITE_API_URL;
 
-	let headers = {
-		'Content-Type': 'application/json'
-	};
+export default axios.create({
+	baseURL: BASE_URL,
+	headers: { 'Content-Type': 'application/json' }
+});
 
-	try {
-		const response = await axios({
-			...options,
-			url: baseURL,
-			headers
-		});
-
-		const { data } = response;
-
-		return data;
-	} catch (error) {
-		const { message, request, response } = error;
-		if (response) {
-			const { data } = response;
-			throw data;
-		} else if (request) {
-			throw request;
-		} else {
-			throw message;
-		}
-	}
-};
+export const axiosPrivate = axios.create({
+	baseURL: BASE_URL,
+	headers: { 'Content-Type': 'application/json' },
+	withCredentials: true
+});
