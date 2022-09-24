@@ -1,14 +1,19 @@
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
-import Login from './pages/auth';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { AuthProvider } from './lib/context/auth/AuthProvider';
+import AppRoutes from './routes/AppRoutes';
 import { store } from './store';
 
 function App() {
 	return (
 		<Provider store={store}>
-			<BrowserRouter>
-				<Login />
-			</BrowserRouter>
+			<AuthProvider>
+				<BrowserRouter>
+					<Routes>
+						<Route path='/*' element={<AppRoutes />} />
+					</Routes>
+				</BrowserRouter>
+			</AuthProvider>
 		</Provider>
 	);
 }

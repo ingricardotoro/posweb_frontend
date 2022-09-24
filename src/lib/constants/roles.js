@@ -1,6 +1,6 @@
 export const ROLES = {
-	USER: 'USER',
-	ADMIN: 'ADMIN',
-	CAJERO: 'CAJERO',
-	MESERO: 'MESERO'
+	USER: 'User',
+	ADMIN: 'Admin',
+	CAJERO: 'Cajero',
+	MESERO: 'Mesero'
 };
