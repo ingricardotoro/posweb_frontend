@@ -8,11 +8,14 @@ const SidebarPos = () => {
 
 	return (
 		<Sidebar visible={visible} onHide={toggleSidebar}>
-			<h3>PosWeb</h3>
+			<h3 className='font-bold text-xl'>PosWeb</h3>
 			<hr />
-			<ul>
+			<ul className='mt-2'>
 				<li className='font-bold'>
 					<Link to='usuarios'>Usuarios</Link>
+				</li>
+				<li className='font-bold'>
+					<Link to='clientes'>Clientes</Link>
 				</li>
 			</ul>
 		</Sidebar>

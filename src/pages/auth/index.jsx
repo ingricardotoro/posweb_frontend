@@ -10,9 +10,7 @@ const Login = () => {
 	return (
 		<article className='h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0 bg-indigo-600'>
 			<header className='max-w-lg mx-auto'>
-				<h2 className='text-4xl font-bold text-white text-center'>
-					PosWeb Furiwa
-				</h2>
+				<h2 className='text-4xl font-bold text-white text-center'>PosWeb</h2>
 				<main className='bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl'>
 					{errorMessage && errorMessage.error && (
 						<section className='bg-red-200 p-5 rounded border-b-2 border-red-300'>

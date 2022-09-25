@@ -4,6 +4,8 @@ import Layout from '../components/layouts/Layout';
 import PrivateRoute from '../components/routing/PrivateRoute/PrivateRoute';
 import { ROLES } from '../lib/constants/roles';
 import Login from '../pages/auth';
+import Customers from '../pages/Customers';
+import CustomerForm from '../pages/Customers/form';
 import Misssing from '../pages/Missing';
 import UsersPage from '../pages/Users';
 
@@ -16,6 +18,8 @@ function AppRoutes() {
 				<Route element={<PrivateRoute allowedRoles={[ROLES.ADMIN]} />}>
 					<Route path='admin' element={<AdminLayout />}>
 						<Route path='usuarios' element={<UsersPage />} />
+						<Route path='clientes' element={<Customers />} />
+						<Route path='clientes/:action' element={<CustomerForm />} />
 					</Route>
 				</Route>
 				<Route path='*' element={<Misssing />} />

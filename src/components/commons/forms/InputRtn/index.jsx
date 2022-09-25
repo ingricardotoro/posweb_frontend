@@ -1,8 +1,8 @@
-import { Dropdown } from 'primereact/dropdown';
+import { InputMask } from 'primereact/inputmask';
 import { Controller } from 'react-hook-form';
 import { Capitalize } from '../../../../lib/utils/Capitalize';
 
-const InputSelect = ({ control, name, placeholder, options, errors }) => {
+const InputRtn = ({ control, name, placeholder, errors }) => {
 	const error = errors[name];
 	const errorMessage = error && error.message;
 
@@ -21,13 +21,12 @@ const InputSelect = ({ control, name, placeholder, options, errors }) => {
 					>
 						{Capitalize(name)}
 					</label>
-					<Dropdown
+					<InputMask
+						mask='9999-9999-999990'
 						id={name}
 						value={value}
-						options={options}
 						onChange={onChange}
 						onBlur={onBlur}
-						optionLabel={'name'}
 						placeholder={placeholder}
 						className={error ? 'p-invalid block' : ''}
 					/>
@@ -38,4 +37,4 @@ const InputSelect = ({ control, name, placeholder, options, errors }) => {
 	);
 };
 
-export default InputSelect;
+export default InputRtn;

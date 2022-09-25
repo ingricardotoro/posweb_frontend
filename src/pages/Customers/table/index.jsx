@@ -3,21 +3,22 @@ import { Column } from 'primereact/column';
 import { DataTable } from 'primereact/datatable';
 import { Toast } from 'primereact/toast';
 import { useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import ConfirmDelete from './ConfirmDelete';
 import HeaderTable from './HeaderTable';
 import { ToolbarTemplate } from './ToolBar';
 
-const UserTable = () => {
-	const [isUserDelete, setIsUserDelete] = useState(false);
-	const [user, setUser] = useState(null);
+const CustomerTable = () => {
+	const [isCustomerDelete, setIsCustomerDelete] = useState(false);
+	const [customer, setCustomer] = useState(null);
 	const [globalFilter, setGlobalFilter] = useState('');
 	const toast = useRef(null);
 
-	const confirmDeleteUser = user => {
-		console.log(user);
+	const confirmDeleteCustomer = customer => {
+		console.log(customer);
 
-		setUser(user);
-		setIsUserDelete(true);
+		setCustomer(customer);
+		setIsCustomerDelete(true);
 	};
 
 	const users = [
@@ -75,15 +76,16 @@ const UserTable = () => {
 	const actions = rowData => {
 		return (
 			<>
-				<Button
-					icon='pi pi-pencil'
-					className='p-button-rounded p-button-warning mr-2'
-					onClick={() => null}
-				/>
+				<Link className='p-button-rounded p-button-warning mr-2' to='editar'>
+					<Button
+						icon='pi pi-pencil'
+						className='p-button-rounded p-button-warning mr-2'
+					/>
+				</Link>
 				<Button
 					icon='pi pi-trash'
 					className='p-button-rounded p-button-danger'
-					onClick={() => confirmDeleteUser(rowData)}
+					onClick={() => confirmDeleteCustomer(rowData)}
 				/>
 			</>
 		);
@@ -94,9 +96,9 @@ const UserTable = () => {
 			<Toast ref={toast} />
 			<ToolbarTemplate />
 			<ConfirmDelete
-				isUserDelete={isUserDelete}
-				setIsUserDelete={setIsUserDelete}
-				user={user}
+				isCustomerDelete={isCustomerDelete}
+				setIsCustomerDelete={setIsCustomerDelete}
+				customer={customer}
 			/>
 			<DataTable
 				value={users}
@@ -118,4 +120,4 @@ const UserTable = () => {
 	);
 };
 
-export default UserTable;
+export default CustomerTable;
