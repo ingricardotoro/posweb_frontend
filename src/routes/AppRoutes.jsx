@@ -15,7 +15,7 @@ function AppRoutes() {
 				{/** Admin Routes */}
 				<Route element={<PrivateRoute allowedRoles={[ROLES.ADMIN]} />}>
 					<Route path='admin' element={<AdminLayout />}>
-						<Route path='users' element={<UsersPage />} />
+						<Route path='usuarios' element={<UsersPage />} />
 					</Route>
 				</Route>
 				<Route path='*' element={<Misssing />} />

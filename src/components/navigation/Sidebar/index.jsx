@@ -12,7 +12,7 @@ const SidebarPos = () => {
 			<hr />
 			<ul>
 				<li className='font-bold'>
-					<Link to='users'>Usuarios</Link>
+					<Link to='usuarios'>Usuarios</Link>
 				</li>
 			</ul>
 		</Sidebar>
