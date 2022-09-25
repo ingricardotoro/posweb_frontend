@@ -2,11 +2,17 @@ import { Button } from 'primereact/button';
 import { Column } from 'primereact/column';
 import { DataTable } from 'primereact/datatable';
 import { Dialog } from 'primereact/dialog';
-import { useState } from 'react';
+import { InputText } from 'primereact/inputtext';
+import { Toast } from 'primereact/toast';
+import { Toolbar } from 'primereact/toolbar';
+import { useRef, useState } from 'react';
+import { leftToolbarTemplate } from './ToolBar';
 
 const UserTable = () => {
 	const [isUserDelete, setIsUserDelete] = useState(false);
 	const [user, setUser] = useState(null);
+	const [globalFilter, setGlobalFilter] = useState('');
+	const toast = useRef(null);
 
 	const confirmDeleteUser = user => {
 		console.log(user);
@@ -18,6 +24,20 @@ const UserTable = () => {
 	const hideDeleteUserDialog = () => {
 		setIsUserDelete(false);
 	};
+
+	const header = (
+		<div className='table-header'>
+			<h5 className='mx-0 my-1'>Control de Usuarios</h5>
+			<span className='p-input-icon-left'>
+				<i className='pi pi-search' />
+				<InputText
+					type='search'
+					onInput={e => setGlobalFilter(e.target.value)}
+					placeholder='Buscar...'
+				/>
+			</span>
+		</div>
+	);
 
 	const questionConfirmDeleteUser = (
 		<>
@@ -100,15 +120,21 @@ const UserTable = () => {
 
 	return (
 		<>
+			<Toast ref={toast} />
+			<div className='mx-4'>
+				<Toolbar className='my-4' left={leftToolbarTemplate}></Toolbar>
+			</div>
 			<DataTable
 				value={users}
 				paginator
 				rows={10}
 				rowsPerPageOptions={[5, 10, 25]}
 				responsiveLayout='scroll'
+				globalFilter={globalFilter}
+				header={header}
 			>
-				<Column field='code' header='Código' />
-				<Column field='name' header='Nombre' />
+				<Column field='code' header='Código' sortable />
+				<Column field='name' header='Nombre' sortable />
 				<Column field='gender' header='Genero' />
 				<Column field='phone1' header='Telefono' />
 				<Column body={actionBodyTemplate} header='Acciones' />

@@ -8,7 +8,7 @@ const PrivateRoute = ({ allowedRoles }) => {
 	return allowedRoles?.includes(auth?.user?.rol) ? (
 		<Outlet />
 	) : (
-		<Navigate to='/login' state={{ from: location }} replace />
+		<Navigate to='/' state={{ from: location }} replace />
 	);
 };
 
