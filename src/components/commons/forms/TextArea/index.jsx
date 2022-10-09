@@ -2,7 +2,7 @@ import { InputTextarea } from 'primereact/inputtextarea';
 import { Controller } from 'react-hook-form';
 import { Capitalize } from '../../../../lib/utils/Capitalize';
 
-const TextArea = ({ control, name, rows = 5, cols = 30, errors }) => {
+const TextArea = ({ control, name, label, rows = 5, cols = 30, errors }) => {
 	const error = errors[name];
 	const errorMessage = error && error.message;
 
@@ -15,7 +15,12 @@ const TextArea = ({ control, name, rows = 5, cols = 30, errors }) => {
 				fieldState: { error }
 			}) => (
 				<>
-					<label htmlFor={name}>{Capitalize(name)}</label>
+					<label
+						htmlFor={name}
+						className='block tracking-wide text-xs font-bold p-1'
+					>
+						{!label ? Capitalize(name) : Capitalize(label)}
+					</label>
 					<InputTextarea
 						id={name}
 						value={value}
@@ -24,9 +29,9 @@ const TextArea = ({ control, name, rows = 5, cols = 30, errors }) => {
 						cols={cols}
 						rows={rows}
 						placeholder={placeholder}
-						className={error ? 'p-invalid block' : ''}
+						className={error ? 'p-invalid block' : 'block'}
 					/>
-					{error && <small className='p-error block'>{errorMessage}</small>}
+					{error && <small className='p-error block p-2'>{errorMessage}</small>}
 				</>
 			)}
 		/>

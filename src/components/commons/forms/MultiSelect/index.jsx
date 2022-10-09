@@ -2,7 +2,14 @@ import { MultiSelect } from 'primereact/multiselect';
 import { Controller } from 'react-hook-form';
 import { Capitalize } from '../../../../lib/utils/Capitalize';
 
-const SelectMulti = ({ control, name, placeholder, options, errors }) => {
+const SelectMulti = ({
+	control,
+	name,
+	label,
+	placeholder,
+	options,
+	errors
+}) => {
 	const error = errors[name];
 	const errorMessage = error && error.message;
 
@@ -15,7 +22,12 @@ const SelectMulti = ({ control, name, placeholder, options, errors }) => {
 				fieldState: { error }
 			}) => (
 				<>
-					<label htmlFor={name}>{Capitalize(name)}</label>
+					<label
+						htmlFor={name}
+						className='block tracking-wide text-xs font-bold p-1'
+					>
+						{!label ? Capitalize(name) : Capitalize(label)}
+					</label>
 					<MultiSelect
 						id={name}
 						value={value}
@@ -25,9 +37,9 @@ const SelectMulti = ({ control, name, placeholder, options, errors }) => {
 						placeholder={placeholder}
 						display='chip'
 						optionLabel={'name'}
-						className={error ? 'p-invalid block' : ''}
+						className={error ? 'p-invalid w-full' : 'w-full'}
 					/>
-					{error && <small className='p-error block'>{errorMessage}</small>}
+					{error && <small className='p-error block p-2'>{errorMessage}</small>}
 				</>
 			)}
 		/>

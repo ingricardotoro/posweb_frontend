@@ -3,7 +3,7 @@ import { Controller } from 'react-hook-form';
 import { Capitalize } from '../../../../lib/utils/Capitalize';
 import './password.css';
 
-const InputPassword = ({ control, name, placeholder, errors }) => {
+const InputPassword = ({ control, name, label, placeholder, errors }) => {
 	const error = errors[name];
 	const errorMessage = error && error.message;
 
@@ -20,7 +20,7 @@ const InputPassword = ({ control, name, placeholder, errors }) => {
 						htmlFor={name}
 						className='block tracking-wide text-xs font-bold'
 					>
-						{Capitalize(name)}
+						{!label ? Capitalize(name) : Capitalize(label) }
 					</label>
 					<Password
 						id={name}
@@ -35,7 +35,7 @@ const InputPassword = ({ control, name, placeholder, errors }) => {
 						}
 						toggleMask
 					/>
-					{error && <small className='p-error block'>{errorMessage}</small>}
+					{error && <small className='p-error block p-2'>{errorMessage}</small>}
 				</>
 			)}
 		/>

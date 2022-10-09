@@ -8,14 +8,20 @@ const SidebarPos = () => {
 
 	return (
 		<Sidebar visible={visible} onHide={toggleSidebar}>
-			<h3 className='font-bold text-xl'>PosWeb</h3>
+			<Link to='/admin' className='font-bold text-2xl'>
+				PosWeb
+			</Link>
 			<hr />
 			<ul className='mt-2'>
-				<li className='font-bold'>
-					<Link to='usuarios'>Usuarios</Link>
+				<li className='text-gray-500  flex items-center gap-4 hover:bg-purple-600 hover:text-white py-3 px-4 rounded-xl transition-colors'>
+					<Link to='usuarios' onClick={toggleSidebar}>
+						Usuarios
+					</Link>
 				</li>
-				<li className='font-bold'>
-					<Link to='clientes'>Clientes</Link>
+				<li className='text-gray-500 flex items-center gap-4 hover:bg-purple-600 hover:text-white py-3 px-4 rounded-xl transition-colors'>
+					<Link to='clientes' onClick={toggleSidebar}>
+						Clientes
+					</Link>
 				</li>
 			</ul>
 		</Sidebar>

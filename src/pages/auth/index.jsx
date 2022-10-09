@@ -25,6 +25,7 @@ const Login = () => {
 								<Input
 									control={control}
 									name='username'
+									label='nombre de usuario'
 									placeholder='Ingrese su nombre de usuario'
 									errors={errors}
 								/>
@@ -33,6 +34,7 @@ const Login = () => {
 								<InputPassword
 									control={control}
 									name='password'
+									label='Contraseña'
 									placeholder='Ingresa tu contraseña'
 									errors={errors}
 								/>

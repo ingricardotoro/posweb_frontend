@@ -7,7 +7,7 @@ import {
 } from '../../lib/services/customers';
 
 const initialState = {
-	customer: {},
+	currentCustomer: {},
 	customers: [],
 	error: '',
 	loading: false
@@ -18,68 +18,65 @@ const customerSlice = createSlice({
 	initialState,
 	reducers: {
 		setCurrentCustomer: (state, action) => {
-			state.customer = action.payload;
+			state.currentCustomer = action.payload;
 		}
 	},
-	extraReducers: {
-		[createCustomer.pending]: (state, action) => {
-			state.loading = true;
-		},
-		[createCustomer.fulfilled]: (state, action) => {
-			state.loading = false;
-			state.customers = [action.payload];
-		},
-		[createCustomer.rejected]: (state, action) => {
-			state.loading = false;
-			state.error = action.payload.message;
-		},
-		[getCustomers.pending]: (state, action) => {
-			state.loading = true;
-		},
-		[getCustomers.fulfilled]: (state, action) => {
-			state.loading = false;
-			state.customers = action.payload;
-		},
-		[getCustomers.rejected]: (state, action) => {
-			state.loading = false;
-			state.error = action.payload.message;
-		},
-		[updateCustomer.pending]: (state, action) => {
-			state.loading = true;
-		},
-		[updateCustomer.fulfilled]: (state, action) => {
-			state.loading = false;
-			const {
-				arg: { id }
-			} = action.meta;
-			const index = state.findIndex(customer => customer.id === id);
-			state[index] = {
-				...state[index],
-				...action.payload
-			};
-		},
-		[updateCustomer.rejected]: (state, action) => {
-			state.loading = false;
-			state.error = action.payload.message;
-		},
-		[deleteCustomer.pending]: (state, action) => {
-			state.loading = true;
-		},
-		[deleteCustomer.fulfilled]: (state, action) => {
-			state.loading = false;
-			const {
-				arg: { id }
-			} = action.meta;
-			if (id) {
-				state.customers = state.customers.filter(
-					customer => customer.id !== id
-				);
-			}
-		},
-		[deleteCustomer.rejected]: (state, action) => {
-			state.loading = false;
-			state.error = action.payload.message;
-		}
+	extraReducers(builder) {
+		builder
+			.addCase(createCustomer.pending, (state, action) => {
+				state.loading = true;
+			})
+			.addCase(createCustomer.fulfilled, (state, action) => {
+				state.loading = false;
+				state.customers = [action.payload];
+			})
+			.addCase(createCustomer.rejected, (state, action) => {
+				state.loading = false;
+				state.error = action.payload.message;
+			})
+			.addCase(getCustomers.fulfilled, (state, action) => {
+				state.loading = false;
+				console.log(action.payload);
+				state.customers = [...action.payload];
+			})
+			.addCase(getCustomers.rejected, (state, action) => {
+				state.loading = false;
+				state.error = action.payload.message;
+			})
+			.addCase(updateCustomer.pending, (state, action) => {
+				state.loading = true;
+			})
+			.addCase(updateCustomer.fulfilled, (state, action) => {
+				state.loading = false;
+				const {
+					arg: { id }
+				} = action.meta;
+				if (id) {
+					state.customers = state.customers.map(item =>
+						item.id === id ? action.payload : item
+					);
+				}
+			})
+			.addCase(updateCustomer.rejected, (state, action) => {
+				state.loading = false;
+				state.error = action.payload.message;
+			})
+			.addCase(deleteCustomer.pending, (state, action) => {
+				state.loading = true;
+			})
+			.addCase(deleteCustomer.fulfilled, (state, action) => {
+				state.loading = false;
+				const {
+					arg: { id }
+				} = action.meta;
+				if (id) {
+					state.customers = state.customers.filter(item => item.id !== id);
+				}
+			})
+			.addCase(deleteCustomer.rejected, (state, action) => {
+				state.loading = false;
+				state.error = action.payload.message;
+			});
 	}
 });
 

@@ -1,8 +1,14 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useState } from 'react';
+import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
+import { NotificationContext } from '../../../../lib/context/theme/NotificationContext';
+import {
+	createCustomer,
+	updateCustomer
+} from '../../../../lib/services/customers';
 
 const schemaValidation = Yup.object({
 	identidad: Yup.string().required('Identidad es requerida'),
@@ -18,7 +24,7 @@ const schemaValidation = Yup.object({
 
 	rtn: Yup.string().min(14, 'Debe tener 14 o más caracteres de largo'),
 
-	gender: Yup.object(),
+	gender: Yup.object().nullable(),
 
 	birth: Yup.string(),
 
@@ -32,21 +38,9 @@ const schemaValidation = Yup.object({
 
 	location: Yup.string(),
 
-	country: Yup.string(),
+	country: Yup.object(),
 
 	city: Yup.string(),
-
-	website: Yup.string(),
-
-	facebook: Yup.string(),
-
-	twitter: Yup.string(),
-
-	linkedin: Yup.string(),
-
-	creditLimit: Yup.number()
-		.positive()
-		.required('Limite de credito es requerido'),
 
 	payIVA: Yup.boolean().required('Paga IVA es requerido')
 });
@@ -54,34 +48,27 @@ const schemaValidation = Yup.object({
 const useFormCustomer = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
+	const dispatch = useDispatch();
+	const { toast } = useContext(NotificationContext);
+
+	const customerEdit = useSelector(state => state.customer.currentCustomer);
+	const action = location.pathname.includes('editar') ? 'Editar' : 'Agregar';
 
 	const initialState = {
-		identidad: '',
-		name: '',
-		lastname: '',
-		rtn: '',
-		gender: '',
-		birth: '',
-		email: '',
-		phone1: '',
-		phone2: '',
-		location: '',
-		country: '',
-		city: '',
-		website: '',
-		facebook: '',
-		twitter: '',
-		linkedin: '',
-		creditLimit: '',
-		payIVA: false
+		identidad: customerEdit ? customerEdit?.identidad : '',
+		name: customerEdit ? customerEdit?.name : '',
+		lastName: customerEdit ? customerEdit?.lastName : '',
+		rtn: customerEdit ? customerEdit?.rtn : '',
+		gender: customerEdit ? customerEdit?.gender : '',
+		birth: customerEdit ? customerEdit?.birth : '',
+		email: customerEdit ? customerEdit?.email : '',
+		phone1: customerEdit ? customerEdit?.phone1 : '',
+		phone2: customerEdit ? customerEdit?.phone2 : '',
+		location: customerEdit ? customerEdit?.location : '',
+		country: customerEdit ? customerEdit?.country : '',
+		city: customerEdit ? customerEdit?.city : '',
+		payIVA: customerEdit ? customerEdit.payIVA : false
 	};
-
-	const [isLoading, setIsLoading] = useState(false);
-
-	const [errorMessage, setErrorMessage] = useState({
-		error: false,
-		message: ''
-	});
 
 	const {
 		control,
@@ -93,7 +80,31 @@ const useFormCustomer = () => {
 	});
 
 	const onSubmit = async data => {
-		console.log(data);
+		const payload = {
+			...data,
+			country: data.country.name,
+			gender: data.gender.name
+		};
+		console.log(payload);
+
+		if (action === 'Editar') {
+			dispatch(
+				updateCustomer({
+					id: customerEdit.id,
+					updatedCustomerData: payload,
+					toast,
+					navigate
+				})
+			);
+		} else {
+			dispatch(
+				createCustomer({
+					createdCustomerData: payload,
+					navigate,
+					toast
+				})
+			);
+		}
 	};
 
 	return {
@@ -101,8 +112,7 @@ const useFormCustomer = () => {
 		handleSubmit,
 		errors,
 		onSubmit,
-		errorMessage,
-		isLoading
+		action
 	};
 };
 

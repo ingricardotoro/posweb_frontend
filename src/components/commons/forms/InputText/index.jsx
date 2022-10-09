@@ -2,7 +2,7 @@ import { InputText } from 'primereact/inputtext';
 import { Controller } from 'react-hook-form';
 import { Capitalize } from '../../../../lib/utils/Capitalize';
 
-const Input = ({ control, name, placeholder, errors }) => {
+const Input = ({ control, name, label, placeholder, errors }) => {
 	const error = errors[name];
 	const errorMessage = error && error.message;
 
@@ -19,7 +19,7 @@ const Input = ({ control, name, placeholder, errors }) => {
 						htmlFor={name}
 						className='block tracking-wide text-xs font-bold p-1'
 					>
-						{Capitalize(name)}
+						{!label ? Capitalize(name) : Capitalize(label)}
 					</label>
 					<InputText
 						id={name}
@@ -31,7 +31,7 @@ const Input = ({ control, name, placeholder, errors }) => {
 							error ? 'p-invalid block w-full p-2' : 'block w-full p-2 my-2'
 						}
 					/>
-					{error && <small className='p-error block'>{errorMessage}</small>}
+					{error && <small className='p-error'>{errorMessage}</small>}
 				</>
 			)}
 		/>

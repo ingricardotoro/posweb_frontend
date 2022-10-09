@@ -3,7 +3,7 @@ import { Calendar } from 'primereact/calendar';
 import { Controller } from 'react-hook-form';
 import { Capitalize } from '../../../../lib/utils/Capitalize';
 
-const InputDate = ({ control, name, placeholder, errors }) => {
+const InputDate = ({ control, name, label, placeholder, errors }) => {
 	const error = errors[name];
 	const errorMessage = error && error.message;
 
@@ -59,7 +59,7 @@ const InputDate = ({ control, name, placeholder, errors }) => {
 			name={name}
 			render={({ field: { value, onChange }, fieldState: { error } }) => (
 				<>
-					<label htmlFor={name}>{Capitalize(name)}</label>
+					<label htmlFor={name} className='block tracking-wide text-xs font-bold p-1'>{!label ? Capitalize(name) : Capitalize(label)}</label>
 					<Calendar
 						id={name}
 						value={value}
@@ -67,7 +67,7 @@ const InputDate = ({ control, name, placeholder, errors }) => {
 						placeholder={placeholder}
 						className={error ? 'border-red-700 block' : ''}
 					/>
-					{error && <small className='p-error block'>{errorMessage}</small>}
+					{error && <small className='p-error block p-2'>{errorMessage}</small>}
 				</>
 			)}
 		/>

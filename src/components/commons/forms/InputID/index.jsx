@@ -2,7 +2,7 @@ import { InputMask } from 'primereact/inputmask';
 import { Controller } from 'react-hook-form';
 import { Capitalize } from '../../../../lib/utils/Capitalize';
 
-const InputID = ({ control, name, placeholder, errors }) => {
+const InputID = ({ control, name, label, placeholder, errors }) => {
 	const error = errors[name];
 	const errorMessage = error && error.message;
 
@@ -19,7 +19,7 @@ const InputID = ({ control, name, placeholder, errors }) => {
 						className='block tracking-wide text-xs font-bold p-1'
 						htmlFor={name}
 					>
-						{Capitalize(name)}
+						{!label ? Capitalize(name) : Capitalize(label)}
 					</label>
 					<InputMask
 						mask='9999-9999-99999'
@@ -28,9 +28,11 @@ const InputID = ({ control, name, placeholder, errors }) => {
 						onChange={onChange}
 						onBlur={onBlur}
 						placeholder={placeholder}
-						className={error ? 'p-invalid block' : ''}
+						className={
+							error ? 'p-invalid block w-full p-2' : 'block w-full p-2 my-2'
+						}
 					/>
-					{error && <small className='p-error block'>{errorMessage}</small>}
+					{error && <small className='p-error block p-2'>{errorMessage}</small>}
 				</>
 			)}
 		/>

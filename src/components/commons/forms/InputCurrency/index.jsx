@@ -5,6 +5,7 @@ import { Capitalize } from '../../../../lib/utils/Capitalize';
 const InputCurrency = ({
 	control,
 	name,
+	label,
 	placeholder,
 	currency = 'L.',
 	errors
@@ -21,7 +22,7 @@ const InputCurrency = ({
 				fieldState: { error }
 			}) => (
 				<div className='p-inputgroup'>
-					<label htmlFor={name}>{Capitalize(name)}</label>
+					<label htmlFor={name} className='block tracking-wide text-xs font-bold p-1'>{!label ? Capitalize(name) : Capitalize(label) }</label>
 					<span className='p-inputgroup-addon'>{currency}</span>
 					<InputText
 						id={name}
@@ -31,7 +32,7 @@ const InputCurrency = ({
 						placeholder={placeholder}
 						className={error ? 'p-invalid block' : ''}
 					/>
-					{error && <small className='p-error block'>{errorMessage}</small>}
+					{error && <small className='p-error block p-2'>{errorMessage}</small>}
 				</div>
 			)}
 		/>

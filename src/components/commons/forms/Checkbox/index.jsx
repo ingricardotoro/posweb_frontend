@@ -2,7 +2,7 @@ import { Checkbox } from 'primereact/checkbox';
 import { Controller } from 'react-hook-form';
 import { Capitalize } from '../../../../lib/utils/Capitalize';
 
-const InputCheckbox = ({ control, name, placeholder, errors }) => {
+const InputCheckbox = ({ control, name, label, placeholder, errors }) => {
 	const error = errors[name];
 	const errorMessage = error && error.message;
 
@@ -16,7 +16,7 @@ const InputCheckbox = ({ control, name, placeholder, errors }) => {
 			}) => (
 				<>
 					<label htmlFor={name} className='p-checkbox-label'>
-						{Capitalize(name)}
+						{!label ? Capitalize(name) : Capitalize(label)}
 					</label>
 					<Checkbox
 						inputId={name}
@@ -24,9 +24,9 @@ const InputCheckbox = ({ control, name, placeholder, errors }) => {
 						onChange={onChange}
 						onBlur={onBlur}
 						placeholder={placeholder}
-						className={error ? 'p-invalid block' : ''}
+						className={error ? 'p-invalid block' : 'block'}
 					></Checkbox>
-					{error && <small className='p-error block'>{errorMessage}</small>}
+					{error && <small className='p-error block p-2'>{errorMessage}</small>}
 				</>
 			)}
 		/>

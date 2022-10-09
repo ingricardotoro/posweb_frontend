@@ -2,7 +2,14 @@ import { Dropdown } from 'primereact/dropdown';
 import { Controller } from 'react-hook-form';
 import { Capitalize } from '../../../../lib/utils/Capitalize';
 
-const InputSelect = ({ control, name, placeholder, options, errors }) => {
+const InputSelect = ({
+	control,
+	name,
+	label,
+	placeholder,
+	options,
+	errors
+}) => {
 	const error = errors[name];
 	const errorMessage = error && error.message;
 
@@ -11,7 +18,7 @@ const InputSelect = ({ control, name, placeholder, options, errors }) => {
 			control={control}
 			name={name}
 			render={({
-				field: { value, onChange, onBlur },
+				field: { name, value, onChange, onBlur },
 				fieldState: { error }
 			}) => (
 				<>
@@ -19,19 +26,19 @@ const InputSelect = ({ control, name, placeholder, options, errors }) => {
 						className='block tracking-wide text-xs font-bold p-1'
 						htmlFor={name}
 					>
-						{Capitalize(name)}
+						{!label ? Capitalize(name) : Capitalize(label)}
 					</label>
 					<Dropdown
 						id={name}
 						value={value}
 						options={options}
-						onChange={onChange}
+						onChange={e => onChange(e.value)}
 						onBlur={onBlur}
 						optionLabel={'name'}
 						placeholder={placeholder}
-						className={error ? 'p-invalid block' : ''}
+						className={error ? 'p-invalid w-full' : 'w-full'}
 					/>
-					{error && <small className='p-error block'>{errorMessage}</small>}
+					{error && <small className='p-error block p-2'>{errorMessage}</small>}
 				</>
 			)}
 		/>

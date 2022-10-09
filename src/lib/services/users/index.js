@@ -1,17 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { axiosPrivate } from '../../api/Axios';
-import { customersMapper } from '../../mappers/customers/customers.mapper';
 
-export const getCustomers = createAsyncThunk(
-	'customers/all',
+export const getUsers = createAsyncThunk(
+	'users/all',
 	async (_, { rejectWithValue }) => {
 		try {
-			const response = await axiosPrivate.get('customers');
-			const data = [...response.data.data];
-
-			let customers = data.map(customer => customersMapper(customer));
-
-			return customers;
+			const response = await axiosPrivate.get('users');
+			return response.data.data;
 		} catch (error) {
 			let message;
 			switch (error.status) {
@@ -31,17 +26,19 @@ export const getCustomers = createAsyncThunk(
 );
 
 export const createCustomer = createAsyncThunk(
-	'customers/createCustomer',
+	'Users/createCustomer',
 	async ({ createdCustomerData, navigate, toast }, { rejectWithValue }) => {
 		try {
-			const response = await axiosPrivate.post(
-				'customers',
-				createdCustomerData
-			);
+			const response = await axiosPrivate.post('users', createdCustomerData);
 
-			//dispatch(notificationSuccess('Cliente agregado exitosamente'));
+			toast.current.show({
+				severity: 'success',
+				summary: 'Successful',
+				detail: 'Cliente agregado exitosamente',
+				life: 3000
+			});
 
-			navigate('/admin/clientes', { replace: true });
+			navigate('/clientes');
 
 			return response.data;
 		} catch (error) {
@@ -64,26 +61,24 @@ export const createCustomer = createAsyncThunk(
 );
 
 export const updateCustomer = createAsyncThunk(
-	'customers/updateCustomer',
+	'Users/updateCustomer',
 	async ({ id, updatedCustomerData, toast, navigate }, { rejectWithValue }) => {
 		try {
-			console.log('antes', { id, updatedCustomerData });
-			const response = await axiosPrivate.put(
-				`customers/${id}`,
+			const response = await axiosPrivate.patch(
+				`Users/${id}`,
 				updatedCustomerData
 			);
 
-			/*toast.current.show({
+			toast.current.show({
 				severity: 'success',
 				summary: 'Successful',
 				detail: 'Cliente actualizado exitosamente',
 				life: 3000
 			});
-			*/
 
-			navigate('/admin/clientes', { replace: true });
-			console.log('despues', response.data.data);
-			return response.data.data;
+			navigate('/clientes');
+
+			return response.data;
 		} catch (error) {
 			let message;
 			switch (error.status) {
@@ -104,18 +99,17 @@ export const updateCustomer = createAsyncThunk(
 );
 
 export const deleteCustomer = createAsyncThunk(
-	'customers/deleteCustomer',
+	'Users/deleteCustomer',
 	async ({ id, toast }, { rejectWithValue }) => {
 		try {
-			const response = await axiosPrivate.delete(`customers/${id}`);
+			const response = await axiosPrivate.delete(`Users/${id}`);
 
-			/*toast.current.show({
+			toast.current.show({
 				severity: 'success',
 				summary: 'Successful',
 				detail: 'Cliente eliminado exitosamente',
 				life: 3000
-			});*/
-
+			});
 			return response.data;
 		} catch (error) {
 			let message;
