@@ -7,6 +7,8 @@ import Login from '../pages/auth';
 import Customers from '../pages/Customers';
 import CustomerForm from '../pages/Customers/form';
 import Misssing from '../pages/Missing';
+import Suppliers from '../pages/Suppliers';
+import SupplierForm from '../pages/Suppliers/form';
 import UsersPage from '../pages/Users';
 
 function AppRoutes() {
@@ -20,6 +22,8 @@ function AppRoutes() {
 						<Route path='usuarios' element={<UsersPage />} />
 						<Route path='clientes' element={<Customers />} />
 						<Route path='clientes/:action' element={<CustomerForm />} />
+						<Route path='proveedores' element={<Suppliers />} />
+						<Route path='proveedores/:action' element={<SupplierForm />} />
 					</Route>
 				</Route>
 				<Route path='*' element={<Misssing />} />
