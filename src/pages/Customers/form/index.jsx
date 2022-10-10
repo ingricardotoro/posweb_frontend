@@ -1,6 +1,7 @@
 import { Button } from 'primereact/button';
 import {
 	Input,
+	InputDate,
 	InputID,
 	InputPhoneNumber,
 	InputRtn,
@@ -92,6 +93,15 @@ const CustomerForm = () => {
 										errors={errors}
 										name='email'
 										placeholder='Ingresa correo'
+									/>
+								</div>
+								<div className='col-span-6 sm:col-span-3'>
+									<InputDate
+										control={control}
+										errors={errors}
+										name='birth'
+										label='Fecha de nacimiento'
+										placeholder='Ingresa fecha de nacimiento'
 									/>
 								</div>
 								<div className='col-span-6 sm:col-span-3'>

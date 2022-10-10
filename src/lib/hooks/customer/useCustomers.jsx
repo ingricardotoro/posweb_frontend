@@ -1,15 +1,15 @@
 import { Button } from 'primereact/button';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { setCurrentCustomer } from '../../../store/customers';
-import { NotificationContext } from '../../context/theme/NotificationContext';
 import { getCustomers } from '../../services/customers';
+import { toast } from 'react-toastify';
 
 const useCustomers = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const { toast } = useContext(NotificationContext);
+	
 	const customers = useSelector(state => state.customer.customers);
 	const currentCustomer = useSelector(state => state.customer.currentCustomer);
 

@@ -38,11 +38,15 @@ export const createCustomer = createAsyncThunk(
 				'customers',
 				createdCustomerData
 			);
+			if(response.data.ok) {
 
-			//dispatch(notificationSuccess('Cliente agregado exitosamente'));
+				toast.success('Cliente agregado exitosamente')
+	
+				navigate('/admin/clientes', { replace: true });
 
-			navigate('/admin/clientes', { replace: true });
-
+				return response.data;
+			}
+			
 			return response.data;
 		} catch (error) {
 			let message;
@@ -67,22 +71,21 @@ export const updateCustomer = createAsyncThunk(
 	'customers/updateCustomer',
 	async ({ id, updatedCustomerData, toast, navigate }, { rejectWithValue }) => {
 		try {
-			console.log('antes', { id, updatedCustomerData });
+			
 			const response = await axiosPrivate.put(
 				`customers/${id}`,
 				updatedCustomerData
 			);
-
-			/*toast.current.show({
-				severity: 'success',
-				summary: 'Successful',
-				detail: 'Cliente actualizado exitosamente',
-				life: 3000
-			});
-			*/
-
-			navigate('/admin/clientes', { replace: true });
-			console.log('despues', response.data.data);
+			
+			if(response.data.ok) {
+				
+				toast.success('Cliente actualizado exitosamente')
+			
+				navigate('/admin/clientes', { replace: true });
+				
+				return response.data.data;
+			}
+			
 			return response.data.data;
 		} catch (error) {
 			let message;
@@ -109,12 +112,11 @@ export const deleteCustomer = createAsyncThunk(
 		try {
 			const response = await axiosPrivate.delete(`customers/${id}`);
 
-			/*toast.current.show({
-				severity: 'success',
-				summary: 'Successful',
-				detail: 'Cliente eliminado exitosamente',
-				life: 3000
-			});*/
+			if(response.data.ok) {
+				toast.success('Cliente eliminado exitosamente')
+			
+				return response.data;
+			}
 
 			return response.data;
 		} catch (error) {

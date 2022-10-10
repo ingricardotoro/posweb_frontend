@@ -9,6 +9,7 @@ export const customersMapper = customerObject => ({
 	identidad: customerObject.person.identidad,
 	gender: customerObject.person.gender,
 	rtn: customerObject.person.rtn,
+	birth: customerObject.person.birth,
 	phone1: customerObject.person.phone1,
 	email: customerObject.person.email,
 	country: customerObject.person.country,

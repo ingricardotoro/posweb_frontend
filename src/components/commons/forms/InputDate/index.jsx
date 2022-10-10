@@ -65,7 +65,7 @@ const InputDate = ({ control, name, label, placeholder, errors }) => {
 						value={value}
 						onChange={onChange}
 						placeholder={placeholder}
-						className={error ? 'border-red-700 block' : ''}
+						className={error ? 'border-red-700 block w-full' : 'w-full'}
 					/>
 					{error && <small className='p-error block p-2'>{errorMessage}</small>}
 				</>

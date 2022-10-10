@@ -1,7 +1,7 @@
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { useDispatch } from 'react-redux';
-import { deleteCustomer } from '../../../lib/services/customers';
+import { deleteCustomer, getCustomers } from '../../../lib/services/customers';
 
 const ConfirmDelete = ({
 	isCustomerDelete,
@@ -18,6 +18,7 @@ const ConfirmDelete = ({
 	const handleDeleteCustomer = () => {
 		dispatch(deleteCustomer({ id: customer.id, toast }));
 		hideDeleteCustomerDialog();
+		dispatch( getCustomers() );
 	};
 
 	const questionConfirmDeleteCustomer = (

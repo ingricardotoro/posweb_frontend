@@ -36,7 +36,6 @@ const customerSlice = createSlice({
 			})
 			.addCase(getCustomers.fulfilled, (state, action) => {
 				state.loading = false;
-				console.log(action.payload);
 				state.customers = [...action.payload];
 			})
 			.addCase(getCustomers.rejected, (state, action) => {

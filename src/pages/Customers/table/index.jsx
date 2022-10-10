@@ -1,6 +1,6 @@
 import { Column } from 'primereact/column';
 import { DataTable } from 'primereact/datatable';
-import { Toast } from 'primereact/toast';
+import { ToastContainer } from 'react-toastify'
 import useCustomers from '../../../lib/hooks/customer/useCustomers';
 import ConfirmDelete from './ConfirmDelete';
 import HeaderTable from './HeaderTable';
@@ -20,7 +20,7 @@ const CustomerTable = () => {
 
 	return (
 		<>
-			<Toast ref={toast} />
+			<ToastContainer autoClose={3000} />
 			<ToolbarTemplate />
 			<ConfirmDelete
 				isCustomerDelete={isCustomerDelete}
@@ -41,7 +41,7 @@ const CustomerTable = () => {
 				<Column field='fullName' header='Nombre' sortable />
 				<Column field='email' header='Email' sortable />
 				<Column field='gender' header='Genero' />
-				<Column field='phone1' header='Telefono' />
+				<Column field='phone1' header='Teléfono' />
 				<Column field='address' header='Dirección' />
 				<Column body={actions} header='Acciones' />
 			</DataTable>

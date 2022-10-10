@@ -1,10 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-import { NotificationContext } from '../../../../lib/context/theme/NotificationContext';
+import { toast } from 'react-toastify';
 import {
 	createCustomer,
 	updateCustomer
@@ -42,32 +41,31 @@ const schemaValidation = Yup.object({
 
 	city: Yup.string(),
 
-	payIVA: Yup.boolean().required('Paga IVA es requerido')
+	payIVA: Yup.boolean()
 });
 
 const useFormCustomer = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const dispatch = useDispatch();
-	const { toast } = useContext(NotificationContext);
-
+	
 	const customerEdit = useSelector(state => state.customer.currentCustomer);
 	const action = location.pathname.includes('editar') ? 'Editar' : 'Agregar';
 
 	const initialState = {
-		identidad: customerEdit ? customerEdit?.identidad : '',
-		name: customerEdit ? customerEdit?.name : '',
-		lastName: customerEdit ? customerEdit?.lastName : '',
-		rtn: customerEdit ? customerEdit?.rtn : '',
-		gender: customerEdit ? customerEdit?.gender : '',
-		birth: customerEdit ? customerEdit?.birth : '',
-		email: customerEdit ? customerEdit?.email : '',
-		phone1: customerEdit ? customerEdit?.phone1 : '',
-		phone2: customerEdit ? customerEdit?.phone2 : '',
-		location: customerEdit ? customerEdit?.location : '',
-		country: customerEdit ? customerEdit?.country : '',
-		city: customerEdit ? customerEdit?.city : '',
-		payIVA: customerEdit ? customerEdit.payIVA : false
+		identidad: customerEdit?.identidad || '',
+		name: customerEdit?.name || '',
+		lastName:  customerEdit?.lastName || '',
+		rtn:  customerEdit?.rtn || '',
+		gender: customerEdit?.gender || '',
+		birth: customerEdit?.birth || '',
+		email: customerEdit?.email || '',
+		phone1: customerEdit?.phone1 || '',
+		phone2: customerEdit?.phone2 || '',
+		location: customerEdit?.location || '',
+		country: customerEdit?.country || '',
+		city: customerEdit?.city || '',
+		payIVA: customerEdit.payIVA || false
 	};
 
 	const {
@@ -85,8 +83,7 @@ const useFormCustomer = () => {
 			country: data.country.name,
 			gender: data.gender.name
 		};
-		console.log(payload);
-
+		
 		if (action === 'Editar') {
 			dispatch(
 				updateCustomer({
