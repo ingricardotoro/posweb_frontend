@@ -1,10 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import axios from '../../../lib/api/Axios';
 import useAuth from '../../../lib/hooks/auth/useAuth';
+import { getAuthenticatedUser } from '../../../lib/services/auth';
 
 const schemaValidation = Yup.object({
 	username: Yup.string().trim().required('Nombre de usuario es requerido'),
@@ -14,6 +16,7 @@ const schemaValidation = Yup.object({
 const useFormLogin = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
+	const dispatch = useDispatch();
 	const from = location.state?.from?.pathname || '/admin';
 
 	const [isLoading, setIsLoading] = useState(false);
@@ -50,6 +53,7 @@ const useFormLogin = () => {
 					user,
 					accessToken
 				});
+				dispatch(getAuthenticatedUser());
 				navigate(from, { replace: true });
 			}
 		} catch (error) {
