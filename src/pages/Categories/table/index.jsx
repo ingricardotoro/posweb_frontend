@@ -1,35 +1,35 @@
 import { Column } from 'primereact/column';
 import { DataTable } from 'primereact/datatable';
 import { ToastContainer } from 'react-toastify';
-import useSuppliers from '../../../lib/hooks/supplier/useSuppliers';
+import useCategories from '../../../lib/hooks/category/useCategories';
 import ConfirmDelete from './ConfirmDelete';
 import HeaderTable from './HeaderTable';
 import { ToolbarTemplate } from './ToolBar';
 
-const SuppliersTable = () => {
+const CategoriesTable = () => {
 	const {
-		suppliers,
-		currentSupplier,
+		categories,
+		currentCategory,
 		toast,
 		globalFilter,
 		setGlobalFilter,
-		isSupplierDelete,
-		setIsSupplierDelete,
+		isCategoryDelete,
+		setIsCategoryDelete,
 		actions
-	} = useSuppliers();
+	} = useCategories();
 
 	return (
 		<>
 			<ToastContainer autoClose={3000} />
 			<ToolbarTemplate />
 			<ConfirmDelete
-				isSupplierDelete={isSupplierDelete}
-				setIsSupplierDelete={setIsSupplierDelete}
-				supplier={currentSupplier}
+				isCategoryDelete={isCategoryDelete}
+				setIsCategoryDelete={setIsCategoryDelete}
+				category={currentCategory}
 				toast={toast}
 			/>
 			<DataTable
-				value={suppliers}
+				value={categories}
 				paginator
 				rows={5}
 				rowsPerPageOptions={[5, 10, 25]}
@@ -37,16 +37,13 @@ const SuppliersTable = () => {
 				globalFilter={globalFilter}
 				header={<HeaderTable setGlobalFilter={setGlobalFilter} />}
 			>
-				<Column field='code' header='Código' sortable />
-				<Column field='fullName' header='Nombre' sortable />
-				<Column field='email' header='Email' sortable />
-				<Column field='gender.name' header='Genero' />
-				<Column field='phone1' header='Teléfono' />
-				<Column field='address' header='Dirección' />
+				<Column field='codeCategory' header='Código' sortable />
+				<Column field='nameCategory' header='Nombre' sortable />
+				<Column field='description' header='Descripción' />
 				<Column body={actions} header='Acciones' />
 			</DataTable>
 		</>
 	);
 };
 
-export default SuppliersTable;
+export default CategoriesTable;

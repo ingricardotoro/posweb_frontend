@@ -28,6 +28,16 @@ const SidebarPos = () => {
 						Proveedores
 					</Link>
 				</li>
+				<li className='text-gray-500 flex items-center gap-4 hover:bg-purple-600 hover:text-white py-3 px-4 rounded-xl transition-colors'>
+					<Link to='categorias' onClick={toggleSidebar}>
+						Categorías
+					</Link>
+				</li>
+				<li className='text-gray-500 flex items-center gap-4 hover:bg-purple-600 hover:text-white py-3 px-4 rounded-xl transition-colors'>
+					<Link to='productos' onClick={toggleSidebar}>
+						Productos
+					</Link>
+				</li>
 			</ul>
 		</Sidebar>
 	);

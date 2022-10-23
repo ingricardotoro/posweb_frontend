@@ -40,7 +40,7 @@ const CustomerTable = () => {
 				<Column field='code' header='Código' sortable />
 				<Column field='fullName' header='Nombre' sortable />
 				<Column field='email' header='Email' sortable />
-				<Column field='gender' header='Genero' />
+				<Column field='gender.name' header='Genero' />
 				<Column field='phone1' header='Teléfono' />
 				<Column field='address' header='Dirección' />
 				<Column body={actions} header='Acciones' />

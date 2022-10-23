@@ -18,7 +18,7 @@ const InputPassword = ({ control, name, label, placeholder, errors }) => {
 				<>
 					<label
 						htmlFor={name}
-						className='block tracking-wide text-xs font-bold'
+						className='tracking-wide text-xs font-bold'
 					>
 						{!label ? Capitalize(name) : Capitalize(label) }
 					</label>

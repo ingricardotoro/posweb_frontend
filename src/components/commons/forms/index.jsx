@@ -8,6 +8,7 @@ import InputRtn from './InputRtn';
 import InputSelect from './InputSelect';
 import Switch from './InputSwitch';
 import Input from './InputText';
+import InputYear from './InputYear';
 import SelectMulti from './MultiSelect';
 import TextArea from './TextArea';
 
@@ -23,5 +24,6 @@ export {
 	SelectMulti,
 	InputPassword,
 	InputDate,
-	InputSelect
+	InputSelect,
+	InputYear
 };

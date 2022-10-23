@@ -2,7 +2,15 @@ import { InputTextarea } from 'primereact/inputtextarea';
 import { Controller } from 'react-hook-form';
 import { Capitalize } from '../../../../lib/utils/Capitalize';
 
-const TextArea = ({ control, name, label, rows = 5, cols = 30, errors }) => {
+const TextArea = ({
+	control,
+	name,
+	label,
+	rows = 5,
+	cols = 30,
+	errors,
+	placeholder
+}) => {
 	const error = errors[name];
 	const errorMessage = error && error.message;
 

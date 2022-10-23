@@ -23,8 +23,8 @@ const NumberInput = ({ control, name, label, placeholder, errors }) => {
 					</label>
 					<InputNumber
 						id={name}
-						value={value}
-						onChange={onChange}
+						value={Number(value)}
+						onValueChange={onChange}
 						onBlur={onBlur}
 						placeholder={placeholder}
 						className={

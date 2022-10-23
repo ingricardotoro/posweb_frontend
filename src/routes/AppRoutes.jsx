@@ -4,9 +4,13 @@ import Layout from '../components/layouts/Layout';
 import PrivateRoute from '../components/routing/PrivateRoute/PrivateRoute';
 import { ROLES } from '../lib/constants/roles';
 import Login from '../pages/auth';
+import Categories from '../pages/Categories';
+import CategoryForm from '../pages/Categories/form';
 import Customers from '../pages/Customers';
 import CustomerForm from '../pages/Customers/form';
 import Misssing from '../pages/Missing';
+import Products from '../pages/Products';
+import ProductsForm from '../pages/Products/form';
 import Suppliers from '../pages/Suppliers';
 import SupplierForm from '../pages/Suppliers/form';
 import UsersPage from '../pages/Users';
@@ -24,6 +28,10 @@ function AppRoutes() {
 						<Route path='clientes/:action' element={<CustomerForm />} />
 						<Route path='proveedores' element={<Suppliers />} />
 						<Route path='proveedores/:action' element={<SupplierForm />} />
+						<Route path='categorias' element={<Categories />} />
+						<Route path='categorias/:action' element={<CategoryForm />} />
+						<Route path='productos' element={<Products />} />
+						<Route path='productos/:action' element={<ProductsForm />} />
 					</Route>
 				</Route>
 				<Route path='*' element={<Misssing />} />

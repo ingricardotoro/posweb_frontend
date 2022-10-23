@@ -1,14 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
 	createSupplier,
-	deleteSupplier,
-	getSuppliers,
-	updateSupplier
+	deleteSupplier, getSelectSuppliers, getSuppliers, updateSupplier
 } from '../../lib/services/suppliers';
 
 const initialState = {
 	currentSupplier: {},
 	suppliers: [],
+	selectSuppliers: [],
 	error: '',
 	loading: false
 };
@@ -39,6 +38,14 @@ const supplierSlice = createSlice({
 				state.suppliers = [...action.payload];
 			})
 			.addCase(getSuppliers.rejected, (state, action) => {
+				state.loading = false;
+				state.error = action.payload.message;
+			})
+			.addCase(getSelectSuppliers.fulfilled, (state, action) => {
+				state.loading = false;
+				state.selectSuppliers = [...action.payload];
+			})
+			.addCase(getSelectSuppliers.rejected, (state, action) => {
 				state.loading = false;
 				state.error = action.payload.message;
 			})

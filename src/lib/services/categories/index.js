@@ -1,18 +1,17 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { axiosPrivate } from '../../api/Axios';
-import { selectSuppliersMapper } from '../../mappers/suppliers/suppliers-select.mapper';
-import { suppliersMapper } from '../../mappers/suppliers/suppliers.mapper';
+import { selectCategoriesMapper } from '../../mappers/categories/categories-select.mapper';
+import { categoriesMapper } from '../../mappers/categories/categories.mapper';
 
-export const getSuppliers = createAsyncThunk(
-	'suppliers/all',
+export const getCategories = createAsyncThunk(
+	'categories/all',
 	async (_, { rejectWithValue }) => {
 		try {
-			const response = await axiosPrivate.get('suppliers');
+			const response = await axiosPrivate.get('categories');
 			const data = [...response.data.data];
+			let categories = data.map(category => categoriesMapper(category));
 
-			let suppliers = data.map(supplier => suppliersMapper(supplier));
-
-			return suppliers;
+			return categories;
 		} catch (error) {
 			let message;
 			switch (error.status) {
@@ -31,16 +30,15 @@ export const getSuppliers = createAsyncThunk(
 	}
 );
 
-export const getSelectSuppliers = createAsyncThunk(
-	'suppliers/selects',
+export const getSelectCategories = createAsyncThunk(
+	'categories/select',
 	async (_, { rejectWithValue }) => {
 		try {
-			const response = await axiosPrivate.get('suppliers');
+			const response = await axiosPrivate.get('categories');
 			const data = [...response.data.data];
+			let categories = data.map(category => selectCategoriesMapper(category));
 
-			let suppliers = data.map(supplier => selectSuppliersMapper(supplier));
-
-			return suppliers;
+			return categories;
 		} catch (error) {
 			let message;
 			switch (error.status) {
@@ -59,18 +57,18 @@ export const getSelectSuppliers = createAsyncThunk(
 	}
 );
 
-export const createSupplier = createAsyncThunk(
-	'suppliers/createSupplier',
-	async ({ createdSupplierData, navigate, toast }, { rejectWithValue }) => {
+export const createCategory = createAsyncThunk(
+	'categories/createCategory',
+	async ({ createdCategoryData, navigate, toast }, { rejectWithValue }) => {
 		try {
 			const response = await axiosPrivate.post(
-				'Suppliers',
-				createdSupplierData
+				'categories',
+				createdCategoryData
 			);
 			if (response.data.ok) {
-				toast.success('Proveedor agregado exitosamente');
+				toast.success('Categoria agregada exitosamente');
 
-				navigate('/admin/proveedores', { replace: true });
+				navigate('/admin/categorias', { replace: true });
 
 				return response.data;
 			}
@@ -95,19 +93,19 @@ export const createSupplier = createAsyncThunk(
 	}
 );
 
-export const updateSupplier = createAsyncThunk(
-	'suppliers/updateSupplier',
-	async ({ id, updatedSupplierData, toast, navigate }, { rejectWithValue }) => {
+export const updateCategory = createAsyncThunk(
+	'categories/updateCategory',
+	async ({ id, updatedCategoryData, toast, navigate }, { rejectWithValue }) => {
 		try {
 			const response = await axiosPrivate.put(
-				`suppliers/${id}`,
-				updatedSupplierData
+				`categories/${id}`,
+				updatedCategoryData
 			);
 
 			if (response.data.ok) {
-				toast.success('Proveedor actualizado exitosamente');
+				toast.success('Categoria actualizada exitosamente');
 
-				navigate('/admin/proveedores', { replace: true });
+				navigate('/admin/categorias', { replace: true });
 
 				return response.data.data;
 			}
@@ -132,14 +130,14 @@ export const updateSupplier = createAsyncThunk(
 	}
 );
 
-export const deleteSupplier = createAsyncThunk(
-	'suppliers/deleteSupplier',
+export const deleteCategory = createAsyncThunk(
+	'categories/deleteCategory',
 	async ({ id, toast }, { rejectWithValue }) => {
 		try {
-			const response = await axiosPrivate.delete(`suppliers/${id}`);
+			const response = await axiosPrivate.delete(`categories/${id}`);
 
 			if (response.data.ok) {
-				toast.success('Proveedor eliminado exitosamente');
+				toast.success('Categoría eliminada exitosamente');
 
 				return response.data;
 			}
