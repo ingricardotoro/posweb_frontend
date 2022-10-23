@@ -57,7 +57,7 @@ const ConfirmDelete = ({
 				/>
 				{category && (
 					<span>
-						Estas seguro de eliminar a <b>{category.name}</b>?
+						Estas seguro de eliminar a <b>{category.nameCategory}</b>?
 					</span>
 				)}
 			</div>
