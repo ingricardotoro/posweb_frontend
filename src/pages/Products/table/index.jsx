@@ -25,7 +25,7 @@ const ProductsTable = () => {
 			<ConfirmDelete
 				isProductDelete={isProductDelete}
 				setIsProductDelete={setIsProductDelete}
-				supplier={currentProduct}
+				product={currentProduct}
 				toast={toast}
 			/>
 			<DataTable
