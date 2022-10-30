@@ -54,7 +54,12 @@ const useFormLogin = () => {
 					accessToken
 				});
 				dispatch(getAuthenticatedUser());
-				navigate(from, { replace: true });
+
+				if (user.rol === 'Admin') navigate(from, { replace: true });
+
+				if (user.rol === 'Cajero') navigate('ventas/caja', { replace: true });
+
+				if (user.rol === 'Mesero') navigate('ventas/pedidos-mesa', { replace: true });
 			}
 		} catch (error) {
 			let messageError;
