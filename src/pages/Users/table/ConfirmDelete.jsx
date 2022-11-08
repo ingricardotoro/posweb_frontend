@@ -1,10 +1,24 @@
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
-import React from 'react';
+import { useDispatch } from 'react-redux';
+import { deleteUser, getUsers } from '../../../lib/services/users';
 
-const ConfirmDelete = ({ isUserDelete, setIsUserDelete, user }) => {
+const ConfirmDelete = ({
+	isUserDelete,
+	setIsUserDelete,
+	user,
+	toast
+}) => {
+	const dispatch = useDispatch();
+
 	const hideDeleteUserDialog = () => {
 		setIsUserDelete(false);
+	};
+
+	const handleDeleteUser = () => {
+		dispatch(deleteUser({ id: user.id, toast }));
+		hideDeleteUserDialog();
+		dispatch( getUsers() );
 	};
 
 	const questionConfirmDeleteUser = (
@@ -19,7 +33,7 @@ const ConfirmDelete = ({ isUserDelete, setIsUserDelete, user }) => {
 				label='Si'
 				icon='pi pi-check'
 				className='p-button-text'
-				onClick={() => null}
+				onClick={handleDeleteUser}
 			/>
 		</>
 	);
@@ -40,7 +54,7 @@ const ConfirmDelete = ({ isUserDelete, setIsUserDelete, user }) => {
 				/>
 				{user && (
 					<span>
-						Estas seguro de eliminar a <b>{user.name}</b>?
+						Estas seguro de {user.isActive ? 'desactivar ': 'activar ' } la cuenta de <b>{user.name}</b>?
 					</span>
 				)}
 			</div>

@@ -1,7 +1,7 @@
 import UserTable from './table';
 
-const UsersPage = () => {
+const Users = () => {
 	return <UserTable />;
 };
 
-export default UsersPage;
+export default Users;

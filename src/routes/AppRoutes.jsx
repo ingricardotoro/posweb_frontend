@@ -17,7 +17,8 @@ import TableOrders from '../pages/sales/table-orders';
 import WebOrders from '../pages/sales/web-orders';
 import Suppliers from '../pages/Suppliers';
 import SupplierForm from '../pages/Suppliers/form';
-import UsersPage from '../pages/Users';
+import Users from '../pages/Users';
+import UserForm from '../pages/Users/form';
 
 function AppRoutes() {
 	return (
@@ -27,7 +28,8 @@ function AppRoutes() {
 				{/** Admin Routes */}
 				<Route element={<PrivateRoute allowedRoles={[ROLES.ADMIN]} />}>
 					<Route path='admin' element={<AdminLayout />}>
-						<Route path='usuarios' element={<UsersPage />} />
+						<Route path='usuarios' element={<Users />} />
+						<Route path='usuarios/:action' element={<UserForm />} />
 						<Route path='clientes' element={<Customers />} />
 						<Route path='clientes/:action' element={<CustomerForm />} />
 						<Route path='proveedores' element={<Suppliers />} />
