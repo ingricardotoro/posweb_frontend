@@ -16,7 +16,6 @@ const ProfileMenu = () => {
 				onClick={handleLogout}
 			>
 				<i className='pi pi-power-off mx-1' style={{ fontSize: '1em' }}></i>
-				Cerrar Sesión
 			</Link>
 		</div>
 	);
