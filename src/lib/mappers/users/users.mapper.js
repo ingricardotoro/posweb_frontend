@@ -12,7 +12,7 @@ export const usersMapper = userObject => ({
 	birth: new Date(userObject.employee.person.birth),
 	phone1: userObject.employee.person.phone1,
 	email: userObject.employee.person.email,
-	country: userObject.employee.person.country,
+	country: { code: userObject.employee.person.country, name: userObject.employee.person.country },
 	city: userObject.employee.person.city,
 	location: userObject.employee.person.location,
 	code: userObject.employee.codeEmployee,

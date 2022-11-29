@@ -53,6 +53,8 @@ const useFormLogin = () => {
 					user,
 					accessToken
 				});
+				localStorage.setItem('jwt', accessToken);
+				
 				dispatch(getAuthenticatedUser());
 
 				if (user.rol === 'Admin') navigate(from, { replace: true });
